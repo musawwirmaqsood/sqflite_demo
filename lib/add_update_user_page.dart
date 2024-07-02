@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sqflite_demo/core/database_service.dart';
 import 'package:sqflite_demo/core/di.dart';
+import 'package:sqflite_demo/core/user_database_helper.dart';
 import 'package:sqflite_demo/model/user.dart';
 
 class AddUpdateUserPage extends StatefulWidget {
@@ -12,19 +12,19 @@ class AddUpdateUserPage extends StatefulWidget {
 }
 
 class _AddUpdateUserPageState extends State<AddUpdateUserPage> {
-  final DatabaseService databaseService = getIt<DatabaseService>();
+  final UserDatabaseHelper userDatabaseHelper = getIt<UserDatabaseHelper>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
 
   Future<User?> _addUser() async {
     if (nameController.text.isEmpty || ageController.text.isEmpty) return null;
-    return await databaseService.insertUser(
+    return await userDatabaseHelper.insertUser(
         User(name: nameController.text, age: int.parse(ageController.text)));
   }
 
   Future<bool> _updateUser() async {
     if (nameController.text.isEmpty || ageController.text.isEmpty) return false;
-    return await databaseService.updateUser(User(
+    return await userDatabaseHelper.updateUser(User(
         id: user!.id,
         name: nameController.text,
         age: int.parse(ageController.text)));

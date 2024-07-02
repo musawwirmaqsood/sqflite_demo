@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sqflite_demo/add_update_user_page.dart';
 import 'package:sqflite_demo/core/database_service.dart';
 import 'package:sqflite_demo/core/di.dart';
+import 'package:sqflite_demo/core/user_database_helper.dart';
 import 'package:sqflite_demo/model/user.dart';
 
 void main() async {
@@ -37,16 +38,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final DatabaseService databaseService = getIt<DatabaseService>();
+  final UserDatabaseHelper userDatabaseHelper = getIt<UserDatabaseHelper>();
   List<User> userList = [];
 
   void _getUserList() async {
-    userList = await databaseService.getUsers();
+    userList = await userDatabaseHelper.getUsers();
     setState(() {});
   }
 
   void _deleteUser(int id) async {
-    await databaseService.deleteUser(id);
+    await userDatabaseHelper.deleteUser(id);
     _getUserList();
   }
 

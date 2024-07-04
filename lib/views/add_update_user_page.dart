@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sqflite_demo/core/di.dart';
-import 'package:sqflite_demo/core/user_database_helper.dart';
-import 'package:sqflite_demo/model/user.dart';
+import 'package:local_database_demo/core/di.dart';
+import 'package:local_database_demo/database/user_database_helper.dart';
+import 'package:local_database_demo/models/user.dart';
 
 class AddUpdateUserPage extends StatefulWidget {
   final User? user;

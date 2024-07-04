@@ -1,10 +1,10 @@
 import 'package:get_it/get_it.dart';
-import 'package:sqflite_demo/core/database_service.dart';
-import 'package:sqflite_demo/core/user_database_helper.dart';
+import 'package:local_database_demo/database/database_service.dart';
+import 'package:local_database_demo/database/user_database_helper.dart';
 
 final getIt = GetIt.instance;
 
-void setup() async {
+Future<void> setupDI() async {
   getIt.registerSingleton<UserDatabaseHelper>(
       UserDatabaseHelper(await DatabaseService().init()));
 }

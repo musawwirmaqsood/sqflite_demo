@@ -1,4 +1,4 @@
-package com.example.sqflite_demo
+package com.example.local_database_demo
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,112 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:sqflite_demo/add_update_user_page.dart';
-import 'package:sqflite_demo/core/database_service.dart';
-import 'package:sqflite_demo/core/di.dart';
-import 'package:sqflite_demo/core/user_database_helper.dart';
-import 'package:sqflite_demo/model/user.dart';
+import 'package:local_database_demo/core/di.dart';
+import 'package:local_database_demo/views/user_list_view_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setup();
-  await getIt<DatabaseService>().init();
+  await setupDI();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        // This is the theme of your application.
+        //
+        // TRY THIS: Try running your application with "flutter run". You'll see
+        // the application has a purple toolbar. Then, without quitting the app,
+        // try changing the seedColor in the colorScheme below to Colors.green
+        // and then invoke "hot reload" (save your changes or press the "hot
+        // reload" button in a Flutter-supported IDE, or press "r" if you used
+        // the command line to start the app).
+        //
+        // Notice that the counter didn't reset back to zero; the application
+        // state is not lost during the reload. To reset the state, use hot
+        // restart instead.
+        //
+        // This works for code too, not just values: Most code changes can be
+        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Users'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final UserDatabaseHelper userDatabaseHelper = getIt<UserDatabaseHelper>();
-  List<User> userList = [];
-
-  void _getUserList() async {
-    userList = await userDatabaseHelper.getUsers();
-    setState(() {});
-  }
-
-  void _deleteUser(int id) async {
-    await userDatabaseHelper.deleteUser(id);
-    _getUserList();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _getUserList();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: userList.isEmpty
-          ? const Center(child: Text('User list is empty'))
-          : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ListView.separated(
-                itemCount: userList.length,
-                itemBuilder: (context, index) => ListTile(
-                  onTap: () async {
-                    await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AddUpdateUserPage(
-                                  user: userList[index],
-                                )));
-                    _getUserList();
-                  },
-                  tileColor: Theme.of(context).colorScheme.primaryContainer,
-                  title: Text(userList[index].name),
-                  subtitle: Text('Age: ${userList[index].age}'),
-                  trailing: IconButton(
-                      onPressed: () {
-                        _deleteUser(userList[index].id!);
-                      },
-                      icon: const Icon(Icons.delete)),
-                ),
-                separatorBuilder: (BuildContext context, int index) {
-                  return const SizedBox(
-                    height: 8,
-                  );
-                },
-              ),
-            ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const AddUpdateUserPage()));
-          _getUserList();
-        },
-        tooltip: 'add',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      home: const UserListViewPage(),
     );
   }
 }

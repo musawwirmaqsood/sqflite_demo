@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="sqflite_demo"
+        android:label="local_database_demo"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

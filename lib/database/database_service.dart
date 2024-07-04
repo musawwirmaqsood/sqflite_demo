@@ -1,6 +1,6 @@
+import 'package:local_database_demo/core/constants.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:sqflite_demo/core/constants.dart';
 
 class DatabaseService {
   Future<Database> init() async {

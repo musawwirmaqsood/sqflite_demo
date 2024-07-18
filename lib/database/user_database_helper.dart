@@ -19,13 +19,13 @@ class UserDatabaseHelper {
 
   Future<bool> updateUser(User user) async {
     int success = await database.update(UsersTable.tableName, user.toJson(),
-        where: 'id =?', whereArgs: [user.id]);
+        where: '${UsersTable.id} =?', whereArgs: [user.id]);
     return success == 1;
   }
 
   Future<bool> deleteUser(int id) async {
-    int deleted = await database
-        .delete(UsersTable.tableName, where: 'id =?', whereArgs: [id]);
+    int deleted = await database.delete(UsersTable.tableName,
+        where: '${UsersTable.id} =?', whereArgs: [id]);
     return deleted == 1;
   }
 

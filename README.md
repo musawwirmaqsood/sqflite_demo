@@ -1,4 +1,4 @@
-# local_database_demo
+# sqflite_demo
 
 A new Flutter project.
 
